@@ -36,4 +36,11 @@ services:
 			- laravel-dockerized
 		volumes:
 			- ./mysql:/var/lib/mysql
-			- ./conf/my.sql:/etc/mysql/my.cnf
+			- ./conf/my.cnf:/etc/mysql/my.cnf
+		ports:
+			- 33601:3306
+		environment:
+			MYSQL_ROOT_PASSWORD: password
+			MYSQL_DATABASE: laravel-dockerized
+			MYSQL_USER: root
+			MYSQL_PASSWORD: password
