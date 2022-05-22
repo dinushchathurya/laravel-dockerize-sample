@@ -20,7 +20,7 @@ services:
 
   php: 
     container_name: php
-    builds: 
+    build: 
       context: .
       dockerfile: Dockerfile
     volumes:
@@ -41,5 +41,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: laravel-dockerized
-      MYSQL_USER: root
+      MYSQL_USER: laravel
       MYSQL_PASSWORD: password
