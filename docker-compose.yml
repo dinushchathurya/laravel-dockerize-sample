@@ -4,6 +4,7 @@ networks:
   laravel-dockerized:
 
 services:
+
   nginx:
     image: nginx:latest
     container_name: nginx
@@ -35,11 +36,28 @@ services:
       - laravel-dockerized
     volumes:
       - ./mysql:/var/lib/mysql
-      - ./conf/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/my.cnf:/etc/my.cnf
     ports:
       - 33601:3306
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: laravel-dockerized
+      MYSQL_DATABASE: laravel
       MYSQL_USER: laravel
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: laravel
+
+  pma:
+    image: phpmyadmin:5.1
+    container_name: phpmyadmin
+    links:
+      - mysql
+    networks:
+      - laravel-dockerized
+    environment:
+        PMA_HOST: mysql
+        MYSQL_ROOT_PASSWORD: password
+        PMA_ARBITRARY: 1
+    depends_on:
+      - mysql
+    ports:
+      - 8888:80
+    restart: always
